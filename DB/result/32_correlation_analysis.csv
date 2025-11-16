@@ -1,0 +1,25 @@
+Category_1,Category_2,Correlation,Strength
+Food & Courier Delivery,Security,-0.9287620927707183,Moderate Negative
+Security,Staff,-0.871056081059632,Moderate Negative
+Cabs,Security,0.866625344952752,Strong Positive
+Cabs,Food & Courier Delivery,-0.8003251145460452,Moderate Negative
+Food & Courier Delivery,Staff,0.7883057588243751,Strong Positive
+Bakul Nivas,Kadamba Nivas,0.7630688386406848,Strong Positive
+Vendors,Staff,0.7553476614702259,Strong Positive
+Cabs,Staff,-0.7505991720337981,Moderate Negative
+Cabs,Housekeeping,0.7504648134303955,Strong Positive
+Housekeeping,Security,0.7465114394442656,Strong Positive
+Housekeeping,Food & Courier Delivery,-0.694121805317639,Moderate Negative
+Parijat Nivas,Bakul Nivas,0.6880027835995866,Moderate Positive
+Vendors,Security,-0.6833744664335967,Moderate Negative
+Housekeeping,Staff,-0.6282113587036556,Moderate Negative
+Palash Nivas,Bakul Nivas,0.6042934031400315,Moderate Positive
+Palash Nivas,Parijat Nivas,0.5918735258393358,Moderate Positive
+Food & Courier Delivery,Vendors,0.5863199001225791,Moderate Positive
+Palash Nivas,Kadamba Nivas,0.5762912239631303,Moderate Positive
+Staff,Mess Workers,0.5525694915951386,Moderate Positive
+Parijat Nivas,Kadamba Nivas,0.5344591671681994,Moderate Positive
+Security,Mess Workers,-0.5033978594072578,Moderate Negative
+Vendors,Bakul Nivas,-0.5017612100524975,Moderate Negative
+Food & Courier Delivery,Mess Workers,0.5010009169812563,Moderate Positive
+Cabs,Vendors,-0.5005095298224025,Moderate Negative

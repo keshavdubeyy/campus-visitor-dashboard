@@ -1,0 +1,46 @@
+File_Name,Category,Description
+00_SUMMARY_REPORT.csv,Summary,Overall summary of all metrics
+01_cleaned_data.csv,Raw Data,Cleaned and standardized raw data
+02_daily_footfall.csv,Temporal,Daily visitor totals
+03_weekly_footfall.csv,Temporal,Weekly aggregation
+04_monthly_category_footfall.csv,Temporal,Monthly category breakdown
+05_monthly_totals.csv,Temporal,Monthly totals with MoM growth
+06_day_of_week_analysis.csv,Temporal,Patterns by day of week
+07_weekend_vs_weekday.csv,Temporal,Weekend vs weekday comparison
+08_quarterly_footfall.csv,Temporal,Quarterly aggregation
+09_yearly_comparison.csv,Temporal,Year-over-year comparison
+10_category_totals.csv,Category,Category totals and statistics
+11_category_growth.csv,Category,Growth trends (first vs last 3 months)
+12_category_frequency.csv,Category,Frequency and regularity
+13_category_peaks.csv,Category,Peak counts per category
+14_category_seasonal.csv,Category,Seasonal patterns by month
+15_top_20_categories.csv,Category,Top 20 categories detailed
+16_daily_operations.csv,Operations,Daily operational metrics
+17_peak_days.csv,Operations,Top 10 busiest days
+18_low_traffic_days.csv,Operations,Top 10 quietest days
+19_operational_stats.csv,Operations,Key operational statistics
+20_traffic_distribution.csv,Operations,Traffic level distribution
+21_monthly_operations.csv,Operations,Monthly operational summary
+22_food_delivery_daily.csv,Stakeholders,Daily food delivery counts
+23_food_delivery_summary.csv,Stakeholders,Food delivery summary
+24_vendor_summary.csv,Stakeholders,Vendor visit summary
+25_security_summary.csv,Stakeholders,Security staff tracking
+26_cab_summary.csv,Stakeholders,Cab entry summary
+27_visitor_summary.csv,Stakeholders,Visitor pattern summary
+28_nivas_summary.csv,Stakeholders,Residence hall traffic
+29_housekeeping_summary.csv,Stakeholders,Housekeeping workload
+30_staff_summary.csv,Stakeholders,Staff attendance patterns
+31_major_events.csv,Stakeholders,Major event identification
+32_correlation_analysis.csv,Advanced,Strong correlations between categories
+33_correlation_matrix.csv,Advanced,Full correlation matrix
+34_anomalies.csv,Advanced,Anomaly detection results
+35_trend_decomposition.csv,Advanced,Trend and seasonality
+36_forecast_7days.csv,Advanced,7-day forecast
+37_volatility_summary.csv,Advanced,Volatility metrics
+38_category_profiles.csv,Advanced,Category behavior clusters
+39_concentration_metrics.csv,Advanced,Market concentration (HHI)
+viz_01_monthly_trend.png,Visualization,Monthly trend visualization
+viz_02_top_categories.png,Visualization,Top categories bar chart
+viz_03_day_of_week.png,Visualization,Day of week patterns
+viz_04_category_distribution.png,Visualization,Category distribution pie chart
+viz_05_category_month_heatmap.png,Visualization,Category-Month heatmap

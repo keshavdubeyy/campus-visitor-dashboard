@@ -1,0 +1,194 @@
+Category,Month_Name,Month,Avg_Count
+Alumini,Jul,7,8.5
+Alumini,Aug,8,3.7586206896551726
+Alumini,Sep,9,3.0434782608695654
+Aroyga & Bank,Apr,4,8.944444444444445
+Aroyga & Bank,May,5,8.838709677419354
+Aroyga & Bank,Jun,6,8.6
+Aroyga & Bank,Jul,7,8.64516129032258
+Aroyga & Bank,Aug,8,8.633333333333333
+Aroyga & Bank,Sep,9,9.48
+Bakul Nivas,Jan,1,1.4
+Bakul Nivas,Feb,2,16.833333333333332
+Bakul Nivas,Mar,3,16.37142857142857
+Bakul Nivas,Apr,4,12.181818181818182
+Bakul Nivas,May,5,6.642857142857143
+Bakul Nivas,Jun,6,9.761904761904763
+Bakul Nivas,Jul,7,5.44
+Bakul Nivas,Aug,8,1.8095238095238095
+Bakul Nivas,Sep,9,1.4166666666666667
+Bakul Nivas,Oct,10,1.0
+Bakul Nivas,Nov,11,1.0
+Bakul Nivas,Dec,12,1.25
+Bikes,Mar,3,34.0
+Bikes,Apr,4,32.083333333333336
+Cabs,Jan,1,292.7741935483871
+Cabs,Feb,2,209.80851063829786
+Cabs,Mar,3,270.4166666666667
+Cabs,Apr,4,255.76190476190476
+Cabs,May,5,235.1290322580645
+Cabs,Jun,6,199.46666666666667
+Cabs,Jul,7,253.53333333333333
+Cabs,Aug,8,251.63333333333333
+Cabs,Sep,9,263.26666666666665
+Cabs,Oct,10,263.26666666666665
+Cabs,Nov,11,271.4
+Cabs,Dec,12,240.8709677419355
+Event Visitors,Jan,1,96.33333333333333
+Event Visitors,Feb,2,133.70833333333334
+Event Visitors,Mar,3,122.91666666666667
+Event Visitors,Apr,4,88.21428571428571
+Event Visitors,May,5,90.0
+Event Visitors,Jun,6,186.21428571428572
+Event Visitors,Jul,7,84.3
+Event Visitors,Aug,8,70.6
+Event Visitors,Sep,9,77.66666666666667
+Event Visitors,Oct,10,91.0
+Event Visitors,Nov,11,72.28571428571429
+Event Visitors,Dec,12,57.07692307692308
+Faculty,Jan,1,16.16
+Faculty,Feb,2,15.9
+Faculty,Mar,3,13.826923076923077
+Faculty,Apr,4,14.61111111111111
+Faculty,May,5,14.26923076923077
+Faculty,Jun,6,11.703703703703704
+Faculty,Jul,7,13.472727272727273
+Faculty,Aug,8,13.981481481481481
+Faculty,Sep,9,14.92
+Faculty,Oct,10,12.6
+Faculty,Nov,11,15.074074074074074
+Faculty,Dec,12,10.785714285714286
+Food & Courier Delivery,Apr,4,86.80459770114942
+Food & Courier Delivery,May,5,50.02597402597402
+Food & Courier Delivery,Jun,6,43.32214765100671
+Food & Courier Delivery,Jul,7,42.69032258064516
+Food & Courier Delivery,Aug,8,59.233333333333334
+Food & Courier Delivery,Sep,9,68.192
+Garbage,Aug,8,1.7142857142857142
+Garbage,Sep,9,1.88
+Heavy Vehicles,Aug,8,10.428571428571429
+Heavy Vehicles,Sep,9,9.76
+Housekeeping,Jan,1,86.37704918032787
+Housekeeping,Feb,2,81.86170212765957
+Housekeeping,Mar,3,76.79166666666667
+Housekeeping,Apr,4,73.38613861386139
+Housekeeping,May,5,64.84946236559139
+Housekeeping,Jun,6,63.30337078651685
+Housekeeping,Jul,7,66.27777777777777
+Housekeeping,Aug,8,65.65555555555555
+Housekeeping,Sep,9,64.72941176470589
+Housekeeping,Oct,10,76.98333333333333
+Housekeeping,Nov,11,87.20338983050847
+Housekeeping,Dec,12,81.0
+Kadamba Nivas,Jan,1,1.2307692307692308
+Kadamba Nivas,Feb,2,8.352941176470589
+Kadamba Nivas,Mar,3,8.022222222222222
+Kadamba Nivas,Apr,4,6.95
+Kadamba Nivas,May,5,2.814814814814815
+Kadamba Nivas,Jun,6,2.75
+Kadamba Nivas,Jul,7,4.148936170212766
+Kadamba Nivas,Aug,8,1.9024390243902438
+Kadamba Nivas,Sep,9,1.56
+Kadamba Nivas,Oct,10,1.5
+Kadamba Nivas,Nov,11,1.0
+Kadamba Nivas,Dec,12,1.9
+Lost & Found,Aug,8,32.666666666666664
+Lost & Found,Sep,9,3.611111111111111
+Magic Pin,Apr,4,9.0
+Magic Pin,May,5,7.375
+Magic Pin,Jun,6,7.7
+Magic Pin,Jul,7,7.65
+Magic Pin,Aug,8,9.433333333333334
+Magic Pin,Sep,9,8.19047619047619
+Mess Workers,Jan,1,24.387096774193548
+Mess Workers,Feb,2,25.127659574468087
+Mess Workers,Mar,3,27.266666666666666
+Mess Workers,Apr,4,28.83050847457627
+Mess Workers,May,5,30.822580645161292
+Mess Workers,Jun,6,28.383333333333333
+Mess Workers,Jul,7,27.262295081967213
+Mess Workers,Aug,8,37.03333333333333
+Mess Workers,Sep,9,33.70909090909091
+Mess Workers,Oct,10,24.8
+Mess Workers,Nov,11,23.533333333333335
+Mess Workers,Dec,12,21.161290322580644
+Milk & Paper,Jan,1,15.258064516129032
+Milk & Paper,Feb,2,12.404255319148936
+Milk & Paper,Mar,3,12.116666666666667
+Milk & Paper,Apr,4,11.8
+Milk & Paper,May,5,10.693548387096774
+Milk & Paper,Jun,6,10.483333333333333
+Milk & Paper,Jul,7,9.918032786885245
+Milk & Paper,Aug,8,10.35
+Milk & Paper,Sep,9,11.2
+Milk & Paper,Oct,10,16.633333333333333
+Milk & Paper,Nov,11,16.533333333333335
+Milk & Paper,Dec,12,15.225806451612904
+Palash Nivas,Jan,1,7.0344827586206895
+Palash Nivas,Feb,2,18.914893617021278
+Palash Nivas,Mar,3,22.016666666666666
+Palash Nivas,Apr,4,17.083333333333332
+Palash Nivas,May,5,14.311475409836065
+Palash Nivas,Jun,6,17.233333333333334
+Palash Nivas,Jul,7,19.056603773584907
+Palash Nivas,Aug,8,5.228070175438597
+Palash Nivas,Sep,9,3.46
+Palash Nivas,Oct,10,3.111111111111111
+Palash Nivas,Nov,11,3.25
+Palash Nivas,Dec,12,10.03448275862069
+Parijat Nivas,Jan,1,7.357142857142857
+Parijat Nivas,Feb,2,11.822222222222223
+Parijat Nivas,Mar,3,11.728813559322035
+Parijat Nivas,Apr,4,9.033898305084746
+Parijat Nivas,May,5,7.225806451612903
+Parijat Nivas,Jun,6,11.440677966101696
+Parijat Nivas,Jul,7,8.357142857142858
+Parijat Nivas,Aug,8,4.145833333333333
+Parijat Nivas,Sep,9,3.7674418604651163
+Parijat Nivas,Oct,10,5.0
+Parijat Nivas,Nov,11,4.517241379310345
+Parijat Nivas,Dec,12,11.466666666666667
+Security,Jan,1,65.0
+Security,Feb,2,64.14893617021276
+Security,Mar,3,63.733333333333334
+Security,Apr,4,63.57142857142857
+Security,May,5,63.0
+Security,Jun,6,63.0
+Security,Jul,7,63.3
+Security,Aug,8,64.76666666666667
+Security,Sep,9,65.0
+Security,Oct,10,65.0
+Security,Nov,11,65.0
+Security,Dec,12,65.0
+Staff,Apr,4,49.285714285714285
+Staff,May,5,52.983333333333334
+Staff,Jun,6,48.66197183098591
+Staff,Jul,7,46.48913043478261
+Staff,Aug,8,46.851851851851855
+Staff,Sep,9,47.708333333333336
+Vendors,Jan,1,43.54838709677419
+Vendors,Feb,2,34.53191489361702
+Vendors,Mar,3,30.266666666666666
+Vendors,Apr,4,28.48051948051948
+Vendors,May,5,36.13978494623656
+Vendors,Jun,6,42.22222222222222
+Vendors,Jul,7,57.28260869565217
+Vendors,Aug,8,54.37078651685393
+Vendors,Sep,9,53.78481012658228
+Vendors,Oct,10,67.06666666666666
+Vendors,Nov,11,66.96666666666667
+Vendors,Dec,12,83.06451612903226
+Visitors,Jan,1,21.35483870967742
+Visitors,Feb,2,19.78723404255319
+Visitors,Mar,3,25.383333333333333
+Visitors,Apr,4,24.302325581395348
+Visitors,May,5,27.59375
+Visitors,Jun,6,46.689655172413794
+Visitors,Jul,7,57.15686274509804
+Visitors,Aug,8,21.2
+Visitors,Sep,9,17.133333333333333
+Visitors,Oct,10,14.866666666666667
+Visitors,Nov,11,23.7
+Visitors,Dec,12,28.06451612903226
+Visitors Vechile,Aug,8,45.0
+Visitors Vehicle,Aug,8,55.0
