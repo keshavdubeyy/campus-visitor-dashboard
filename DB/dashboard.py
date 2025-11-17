@@ -1756,6 +1756,388 @@ def show_data_quality(csvs: Dict[str, pd.DataFrame]):
 				st.success("✅ All dates have records")
 
 
+def show_product_insights(csvs: Dict[str, pd.DataFrame]):
+	"""Product Insights for First-Time Visitor Experience & Security Staff Efficiency"""
+	st.header("🎯 Product Insights: Visitor Navigation & Security Operations")
+	
+	st.markdown("""
+	**POV Statement:** A first-time visitor needs a clear, convenient, and confident way to navigate campus tasks.
+	
+	**HMW:** How might we create a seamless experience for first-time visitors and security staff?
+	""")
+	
+	# Key Product Metrics
+	st.subheader("🔑 Critical Product Metrics")
+	
+	if '00_SUMMARY_REPORT' in csvs and '27_visitor_summary' in csvs and '25_security_summary' in csvs:
+		summary = csvs['00_SUMMARY_REPORT'].iloc[0]
+		visitor_data = csvs['27_visitor_summary']
+		security_data = csvs['25_security_summary'].iloc[0]
+		
+		col1, col2, col3, col4 = st.columns(4)
+		
+		with col1:
+			# First-time visitor proxy
+			visitor_rows = visitor_data[visitor_data['Category'] == 'Visitors']
+			if len(visitor_rows) > 0:
+				visitor_total = visitor_rows['Total'].values[0]
+				visitor_avg = visitor_rows['Avg_Daily'].values[0]
+				st.metric("Daily Visitors", f"{visitor_avg:.0f}", delta=f"Total: {visitor_total:,}")
+		
+		with col2:
+			# Event visitors (likely first-timers)
+			event_rows = visitor_data[visitor_data['Category'] == 'Event Visitors']
+			if len(event_rows) > 0:
+				event_total = event_rows['Total'].values[0]
+				event_avg = event_rows['Avg_Daily'].values[0]
+				st.metric("Event Visitors/Day", f"{event_avg:.0f}", delta=f"Total: {event_total:,}")
+		
+		with col3:
+			# Security workload
+			security_avg = security_data['Avg_Daily']
+			st.metric("Security Checks/Day", f"{security_avg:.0f}", 
+					 delta=f"Active Days: {int(security_data['Days_Active'])}")
+		
+		with col4:
+			# Peak complexity indicator
+			st.metric("Max Daily Visitors", f"{int(summary['Max_Daily_Visitors']):,}",
+					 delta=f"Avg: {summary['Avg_Daily_Visitors']:.0f}")
+	
+	st.divider()
+	
+	# Insight 1: Peak Confusion Times
+	st.subheader("⏰ INSIGHT #1: Peak Entry Times = Confusion Hotspots")
+	
+	if '06_day_of_week_analysis' in csvs:
+		dow_df = csvs['06_day_of_week_analysis'].copy()
+		
+		col1, col2 = st.columns([2, 1])
+		
+		with col1:
+			fig = px.bar(
+				dow_df,
+				x='DayOfWeek',
+				y='Avg_Daily',
+				title="Average Daily Entry Volume by Day",
+				color='Avg_Daily',
+				color_continuous_scale='Reds',
+				labels={'Avg_Daily': 'Avg Entries'}
+			)
+			fig.add_hline(y=dow_df['Avg_Daily'].mean(), line_dash="dash", 
+						 line_color="blue", annotation_text="Average")
+			st.plotly_chart(fig, use_container_width=True)
+		
+		with col2:
+			st.markdown("**Product Implications:**")
+			busiest = dow_df.loc[dow_df['Avg_Daily'].idxmax()]
+			quietest = dow_df.loc[dow_df['Avg_Daily'].idxmin()]
+			
+			st.write(f"🔴 **Busiest:** {busiest['DayOfWeek']} ({busiest['Avg_Daily']:.0f} entries)")
+			st.write(f"🟢 **Quietest:** {quietest['DayOfWeek']} ({quietest['Avg_Daily']:.0f} entries)")
+			
+			st.markdown("""
+			**Design Recommendation:**
+			- Pre-entry digital registration on busy days
+			- Dedicated first-timer lanes
+			- Real-time queue status display
+			- Security staff allocation algorithm
+			""")
+	
+	st.divider()
+	
+	# Insight 2: Event-Driven Chaos
+	st.subheader("🎪 INSIGHT #2: Event Days = Navigation Nightmare")
+	
+	if '31_major_events' in csvs and '17_peak_days' in csvs:
+		events_df = csvs['31_major_events'].head(10)
+		peaks_df = csvs['17_peak_days'].head(10)
+		
+		col1, col2 = st.columns(2)
+		
+		with col1:
+			fig = px.scatter(
+				events_df,
+				x=events_df.index,
+				y='Count',
+				size='Count',
+				color='Count',
+				title="Major Event Days (First-Timer Spike)",
+				hover_data={'Date': events_df['Date']},
+				color_continuous_scale='Oranges'
+			)
+			st.plotly_chart(fig, use_container_width=True)
+			
+			st.info(f"📊 **{len(csvs['31_major_events'])} major events** detected where first-time visitors likely needed extra guidance")
+		
+		with col2:
+			# Merge peak days with events
+			peaks_merged = peaks_df.merge(events_df[['Date', 'Count']], 
+										 left_on='Date', right_on='Date', 
+										 how='left', suffixes=('_total', '_event'))
+			peaks_merged['Event_Percentage'] = (peaks_merged['Count_event'] / peaks_merged['Total_Visitors'] * 100).fillna(0)
+			
+			fig = px.bar(
+				peaks_merged.head(10),
+				x='Date',
+				y=['Total_Visitors', 'Count_event'],
+				title="Peak Days: Total vs Event Visitors",
+				barmode='group',
+				labels={'value': 'Visitors', 'variable': 'Type'}
+			)
+			st.plotly_chart(fig, use_container_width=True)
+		
+		st.markdown("""
+		**Critical Product Features Needed:**
+		1. **Event Mode Toggle**: Simplified, guided navigation for event days
+		2. **Pre-Event Digital Passes**: QR codes sent before arrival
+		3. **Interactive Campus Map**: With real-time event locations
+		4. **Emergency Contact**: Quick access to help desk/guides
+		5. **Parking & Transport Info**: Integrated with entry process
+		""")
+	
+	st.divider()
+	
+	# Insight 3: Destination Complexity
+	st.subheader("🗺️ INSIGHT #3: Multiple Destinations = Wayfinding Challenge")
+	
+	if '28_nivas_summary' in csvs and '10_category_totals' in csvs:
+		nivas_df = csvs['28_nivas_summary']
+		categories = csvs['10_category_totals'].head(10)
+		
+		col1, col2 = st.columns(2)
+		
+		with col1:
+			fig = px.pie(
+				nivas_df,
+				values='Total_Traffic',
+				names='Nivas',
+				title="Building Distribution (Nivas Traffic)"
+			)
+			st.plotly_chart(fig, use_container_width=True)
+			
+			st.write(f"**{len(nivas_df)} key buildings** visitors need to navigate to")
+		
+		with col2:
+			fig = px.treemap(
+				categories,
+				path=['Category'],
+				values='Total',
+				title="Visitor Purpose Distribution",
+				color='Total',
+				color_continuous_scale='Blues'
+			)
+			st.plotly_chart(fig, use_container_width=True)
+			
+			st.write(f"**{len(categories)} different visitor types** with unique navigation needs")
+		
+		st.markdown("""
+		**Navigation Solution Features:**
+		- **Purpose-Based Routing**: "I'm here for X" → Auto-route
+		- **Building Finder**: Search by person/department/service
+		- **AR Wayfinding**: Camera overlay with directions
+		- **Landmark-Based Directions**: "Turn left at Kadamba Nivas"
+		- **Multi-Stop Itinerary**: Plan multiple campus tasks in sequence
+		""")
+	
+	st.divider()
+	
+	# Insight 4: Security Bottlenecks
+	st.subheader("👮 INSIGHT #4: Security Process Delays")
+	
+	if '25_security_summary' in csvs and '00_SUMMARY_REPORT' in csvs:
+		security = csvs['25_security_summary'].iloc[0]
+		summary = csvs['00_SUMMARY_REPORT'].iloc[0]
+		
+		# Calculate security workload
+		total_visitors = summary['Total_Visitors']
+		security_records = security['Total_Security_Records']
+		ratio = total_visitors / security_records if security_records > 0 else 0
+		
+		col1, col2, col3 = st.columns(3)
+		
+		with col1:
+			st.metric("Security Checks", f"{int(security_records):,}", 
+					 delta=f"{security['Avg_Daily']:.0f}/day")
+		
+		with col2:
+			st.metric("Total Entries", f"{int(total_visitors):,}",
+					 delta=f"{summary['Avg_Daily_Visitors']:.0f}/day")
+		
+		with col3:
+			st.metric("Visitor:Security Ratio", f"{ratio:.1f}:1",
+					 delta="Manual verification load")
+		
+		st.markdown("""
+		**Security Staff Efficiency Features:**
+		1. **Pre-Verification System**: 
+		   - Visitors submit details before arrival
+		   - Security receives pre-approved list
+		   - QR code scan at gate = instant entry
+		
+		2. **Smart Queue Management**:
+		   - Digital queue tokens
+		   - Expected wait time display
+		   - Callback notification when ready
+		
+		3. **Purpose-Based Fast Lanes**:
+		   - Regular visitors (staff, vendors) → Express lane
+		   - First-timers → Assisted lane with guide
+		   - Event attendees → Bulk verification
+		
+		4. **Security Dashboard** (for staff):
+		   - Live entry rate
+		   - Average processing time
+		   - Alert on anomalies
+		   - Daily/weekly patterns
+		""")
+	
+	st.divider()
+	
+	# Insight 5: Seasonal Patterns
+	st.subheader("📆 INSIGHT #5: Predictable Patterns = Preparation Opportunity")
+	
+	if '05_monthly_totals' in csvs:
+		monthly = csvs['05_monthly_totals'].copy()
+		monthly['Month_Year'] = pd.to_datetime(monthly['Month_Year'])
+		
+		fig = go.Figure()
+		
+		fig.add_trace(go.Scatter(
+			x=monthly['Month_Year'],
+			y=monthly['Total_Visitors'],
+			mode='lines+markers',
+			name='Total Visitors',
+			line=dict(color='#FF6B6B', width=3)
+		))
+		
+		# Add average line
+		avg = monthly['Total_Visitors'].mean()
+		fig.add_hline(y=avg, line_dash="dash", line_color="blue",
+					 annotation_text=f"Avg: {avg:.0f}")
+		
+		fig.update_layout(
+			title="Monthly Visitor Trends",
+			xaxis_title="Month",
+			yaxis_title="Total Visitors",
+			height=400
+		)
+		
+		st.plotly_chart(fig, use_container_width=True)
+		
+		# Identify high/low months
+		high_months = monthly.nlargest(3, 'Total_Visitors')
+		low_months = monthly.nsmallest(3, 'Total_Visitors')
+		
+		col1, col2 = st.columns(2)
+		
+		with col1:
+			st.markdown("**🔴 High Volume Months:**")
+			for _, row in high_months.iterrows():
+				st.write(f"- {row['Month_Year'].strftime('%b %Y')}: {int(row['Total_Visitors']):,} visitors")
+		
+		with col2:
+			st.markdown("**🟢 Low Volume Months:**")
+			for _, row in low_months.iterrows():
+				st.write(f"- {row['Month_Year'].strftime('%b %Y')}: {int(row['Total_Visitors']):,} visitors")
+		
+		st.markdown("""
+		**Predictive Product Features:**
+		- **Capacity Forecasting**: Warn visitors of busy periods
+		- **Dynamic Staffing**: Algorithm suggests security staff allocation
+		- **Pre-Visit Planning**: "Best time to visit" recommendations
+		- **Resource Scaling**: Adjust help desk availability
+		""")
+	
+	st.divider()
+	
+	# Final Product Recommendations
+	st.subheader("🚀 Key Product Features Summary")
+	
+	col1, col2 = st.columns(2)
+	
+	with col1:
+		st.markdown("""
+		**🎯 For First-Time Visitors:**
+		1. ✅ Pre-arrival digital registration
+		2. ✅ QR code for express entry
+		3. ✅ Interactive campus map with AR
+		4. ✅ Purpose-based auto-routing
+		5. ✅ Real-time queue status
+		6. ✅ Emergency help button
+		7. ✅ Multi-stop itinerary planner
+		8. ✅ Parking & transport integration
+		9. ✅ Best time to visit recommendations
+		10. ✅ Event-specific guided mode
+		""")
+	
+	with col2:
+		st.markdown("""
+		**👮 For Security Staff:**
+		1. ✅ Pre-verified visitor dashboard
+		2. ✅ QR code scanner for instant check
+		3. ✅ Smart queue management system
+		4. ✅ Purpose-based lane assignment
+		5. ✅ Live entry analytics
+		6. ✅ Anomaly detection alerts
+		7. ✅ Predictive staffing recommendations
+		8. ✅ Average processing time tracker
+		9. ✅ Daily pattern insights
+		10. ✅ Event day preparation mode
+		""")
+	
+	st.divider()
+	
+	# Data-Driven Design Priorities
+	st.subheader("📊 Data-Driven Design Priorities")
+	
+	priorities = pd.DataFrame({
+		'Feature': [
+			'Pre-Entry Digital Registration',
+			'QR Code Express Entry',
+			'Interactive Campus Map',
+			'Event Day Mode',
+			'Smart Queue Management',
+			'Purpose-Based Routing',
+			'Security Staff Dashboard',
+			'Predictive Capacity Alerts'
+		],
+		'Impact_Score': [95, 90, 85, 80, 85, 75, 80, 70],
+		'Complexity': [6, 4, 8, 6, 7, 7, 6, 8],
+		'Category': ['Core', 'Core', 'Core', 'High-Value', 'High-Value', 'Core', 'High-Value', 'Nice-to-Have']
+	})
+	
+	priorities['ROI_Score'] = priorities['Impact_Score'] / priorities['Complexity']
+	priorities = priorities.sort_values('ROI_Score', ascending=False)
+	
+	fig = px.scatter(
+		priorities,
+		x='Complexity',
+		y='Impact_Score',
+		size='ROI_Score',
+		color='Category',
+		text='Feature',
+		title="Feature Prioritization Matrix",
+		labels={'Complexity': 'Implementation Complexity (1-10)', 
+			   'Impact_Score': 'User Impact (1-100)'},
+		color_discrete_map={
+			'Core': '#FF6B6B',
+			'High-Value': '#4ECDC4',
+			'Nice-to-Have': '#95E1D3'
+		}
+	)
+	
+	fig.update_traces(textposition='top center', textfont_size=9)
+	fig.update_layout(height=500)
+	
+	st.plotly_chart(fig, use_container_width=True)
+	
+	st.markdown("""
+	**Recommended Build Sequence:**
+	1. **Phase 1 (MVP)**: QR Code Entry + Pre-Registration + Basic Map
+	2. **Phase 2**: Smart Queues + Purpose Routing + Security Dashboard  
+	3. **Phase 3**: Event Mode + AR Navigation + Predictive Analytics
+	""")
+
 
 def main():
 	"""Main application entry point with navigation and global state."""
@@ -1780,6 +2162,7 @@ def main():
 		st.subheader("📑 Navigation")
 		pages = {
 			"🏠 Executive Overview": show_overview,
+			"🎯 Product Insights": show_product_insights,
 			"📅 Temporal Analysis": show_temporal,
 			"🏷️ Category Analysis": show_category,
 			"🏛️ Nivas / Buildings": show_nivas,
