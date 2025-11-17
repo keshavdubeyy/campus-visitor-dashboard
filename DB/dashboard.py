@@ -1872,16 +1872,18 @@ def show_product_insights(csvs: Dict[str, pd.DataFrame]):
 			st.info(f"📊 **{len(csvs['31_major_events'])} major events** detected where first-time visitors likely needed extra guidance")
 		
 		with col2:
-			# Merge peak days with events
-			peaks_merged = peaks_df.merge(events_df[['Date', 'Count']], 
+			# Merge peak days with events - rename event count column first
+			events_for_merge = events_df[['Date', 'Count']].rename(columns={'Count': 'Event_Visitors'})
+			peaks_merged = peaks_df.merge(events_for_merge, 
 										 left_on='Date', right_on='Date', 
-										 how='left', suffixes=('_total', '_event'))
-			peaks_merged['Event_Percentage'] = (peaks_merged['Count_event'] / peaks_merged['Total_Visitors'] * 100).fillna(0)
+										 how='left')
+			peaks_merged['Event_Visitors'] = peaks_merged['Event_Visitors'].fillna(0)
+			peaks_merged['Event_Percentage'] = (peaks_merged['Event_Visitors'] / peaks_merged['Total_Visitors'] * 100).fillna(0)
 			
 			fig = px.bar(
 				peaks_merged.head(10),
 				x='Date',
-				y=['Total_Visitors', 'Count_event'],
+				y=['Total_Visitors', 'Event_Visitors'],
 				title="Peak Days: Total vs Event Visitors",
 				barmode='group',
 				labels={'value': 'Visitors', 'variable': 'Type'}
