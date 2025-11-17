@@ -1927,7 +1927,7 @@ def show_product_insights(csvs: Dict[str, pd.DataFrame]):
 			fig = go.Figure(data=[
 				go.Bar(
 					x=categories['Category'],
-					y=categories['Total'],
+					y=categories['Total_Count'],
 					marker_color='lightblue'
 				)
 			])
