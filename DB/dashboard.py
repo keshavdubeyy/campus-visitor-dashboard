@@ -1922,14 +1922,17 @@ def show_product_insights(csvs: Dict[str, pd.DataFrame]):
 			st.write(f"**{len(nivas_df)} key buildings** visitors need to navigate to")
 		
 		with col2:
-			fig = px.treemap(
+			# Use bar chart instead of treemap for simpler visualization
+			fig = px.bar(
 				categories,
-				path=['Category'],
-				values='Total',
+				x='Category',
+				y='Total',
 				title="Visitor Purpose Distribution",
 				color='Total',
-				color_continuous_scale='Blues'
+				color_continuous_scale='Blues',
+				labels={'Total': 'Total Visitors'}
 			)
+			fig.update_layout(xaxis_tickangle=-45, height=400)
 			st.plotly_chart(fig, use_container_width=True)
 			
 			st.write(f"**{len(categories)} different visitor types** with unique navigation needs")
