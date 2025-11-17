@@ -1905,8 +1905,9 @@ def show_product_insights(csvs: Dict[str, pd.DataFrame]):
 	st.subheader("🗺️ INSIGHT #3: Multiple Destinations = Wayfinding Challenge")
 	
 	if '28_nivas_summary' in csvs and '10_category_totals' in csvs:
-		nivas_df = csvs['28_nivas_summary']
-		categories = csvs['10_category_totals'].head(10)
+		nivas_df = csvs['28_nivas_summary'].copy()
+		categories = csvs['10_category_totals'].head(10).copy()
+		categories = categories.reset_index(drop=True)
 		
 		col1, col2 = st.columns(2)
 		
@@ -1922,17 +1923,21 @@ def show_product_insights(csvs: Dict[str, pd.DataFrame]):
 			st.write(f"**{len(nivas_df)} key buildings** visitors need to navigate to")
 		
 		with col2:
-			# Use bar chart instead of treemap for simpler visualization
-			fig = px.bar(
-				categories,
-				x='Category',
-				y='Total',
+			# Simple bar chart showing visitor categories
+			fig = go.Figure(data=[
+				go.Bar(
+					x=categories['Category'],
+					y=categories['Total'],
+					marker_color='lightblue'
+				)
+			])
+			fig.update_layout(
 				title="Visitor Purpose Distribution",
-				color='Total',
-				color_continuous_scale='Blues',
-				labels={'Total': 'Total Visitors'}
+				xaxis_title="Category",
+				yaxis_title="Total Visitors",
+				xaxis_tickangle=-45,
+				height=400
 			)
-			fig.update_layout(xaxis_tickangle=-45, height=400)
 			st.plotly_chart(fig, use_container_width=True)
 			
 			st.write(f"**{len(categories)} different visitor types** with unique navigation needs")
