@@ -1849,7 +1849,8 @@ def show_product_insights(csvs: Dict[str, pd.DataFrame]):
 	st.subheader("🎪 INSIGHT #2: Event Days = Navigation Nightmare")
 	
 	if '31_major_events' in csvs and '17_peak_days' in csvs:
-		events_df = csvs['31_major_events'].head(10)
+		events_df = csvs['31_major_events'].head(10).copy()
+		events_df['Event_Rank'] = range(1, len(events_df) + 1)
 		peaks_df = csvs['17_peak_days'].head(10)
 		
 		col1, col2 = st.columns(2)
@@ -1857,13 +1858,14 @@ def show_product_insights(csvs: Dict[str, pd.DataFrame]):
 		with col1:
 			fig = px.scatter(
 				events_df,
-				x=events_df.index,
+				x='Event_Rank',
 				y='Count',
 				size='Count',
 				color='Count',
 				title="Major Event Days (First-Timer Spike)",
-				hover_data={'Date': events_df['Date']},
-				color_continuous_scale='Oranges'
+				hover_data=['Date'],
+				color_continuous_scale='Oranges',
+				labels={'Event_Rank': 'Event Number', 'Count': 'Event Visitors'}
 			)
 			st.plotly_chart(fig, use_container_width=True)
 			
